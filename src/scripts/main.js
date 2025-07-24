@@ -356,23 +356,31 @@ const people = [
 
 // eslint-disable-next-line no-console
 
-const table = document.querySelector('.dashboard');
+function generateTable() {
+  const table = document.querySelector('.dashboard');
 
-people.forEach((person) => {
-  const row = document.createElement('tr');
+  if (!table) {
+    return;
+  }
 
-  const age = person.died - person.born;
-  const century = Math.ceil(person.died / 100);
-  const gender = person.sex === 'm' ? 'Male' : 'Female';
+  people.forEach((person) => {
+    const row = document.createElement('tr');
 
-  const cells = [person.name, gender, person.born, person.died, age, century];
+    const age = person.died - person.born;
+    const century = Math.ceil(person.died / 100);
+    const gender = person.sex === 'm' ? 'Male' : 'Female';
 
-  cells.forEach((value) => {
-    const cell = document.createElement('td');
+    const cells = [person.name, gender, person.born, person.died, age, century];
 
-    cell.textContent = value;
-    row.appendChild(cell);
+    cells.forEach((value) => {
+      const cell = document.createElement('td');
+
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+
+    table.appendChild(row);
   });
+}
 
-  table.appendChild(row);
-});
+document.addEventListener('DOMContentLoaded', generateTable);
